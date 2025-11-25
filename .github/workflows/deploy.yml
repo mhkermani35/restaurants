@@ -1,12 +1,9 @@
 name: Deploy Vite Project to GitHub Pages
 
 on:
-  # این Action هر زمان که کدی به شاخه main پوش شود، اجرا می‌شود
   push:
     branches:
       - main
-  
-  # اجازه اجرای دستی از طریق تب Actions
   workflow_dispatch:
 
 permissions:
@@ -26,29 +23,26 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+          
+      - name: Clean npm cache
+        run: npm cache clean --force
 
-      # نصب پکیج‌های پروژه
       - name: Install Dependencies
         run: npm install
 
-      # اجرای دستور ساخت (Build)
       - name: Build Project (Vite)
         run: npm run build
 
-      # تنظیمات لازم برای استقرار توسط گیت‌هاب پیجز
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
-          # تعیین پوشه 'dist' به عنوان آرتیفکت استقرار
           static_site_generator: vite
 
-      # آپلود آرتیفکت ساخت شده
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist' # آدرس پوشه خروجی build
+          path: './dist'
 
-  # مرحله استقرار
   deploy:
     environment:
       name: github-pages
