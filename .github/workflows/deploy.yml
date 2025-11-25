@@ -22,13 +22,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
-          
-      # استفاده از npm ci برای نصب تمیز و بدون خطا (به جای npm install)
-      - name: Clean Install Dependencies
-        run: npm ci
+          # خط cache در اینجا حذف شده است تا نصب کاملاً تازه باشد
 
-      # اجرای دستور ساخت (Build)
+      - name: Install Dependencies (Fresh Install)
+        # استفاده از npm install برای انعطاف‌پذیری بیشتر
+        run: npm install
+
       - name: Build Project (Vite)
         run: npm run build
 
