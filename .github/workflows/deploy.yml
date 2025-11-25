@@ -18,18 +18,17 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node.js v20
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
           
-      - name: Clean npm cache
-        run: npm cache clean --force
+      # استفاده از npm ci برای نصب تمیز و بدون خطا (به جای npm install)
+      - name: Clean Install Dependencies
+        run: npm ci
 
-      - name: Install Dependencies
-        run: npm install
-
+      # اجرای دستور ساخت (Build)
       - name: Build Project (Vite)
         run: npm run build
 
